@@ -41,8 +41,9 @@
 Given matrices: A₁: 5×4, A₂: 4×6, A₃: 6×2, A₄: 2×7 (so dimensions p = [5,4,6,2,7])
 
 **(a) Recurrence and base case**
-- Base case: \(m[i,i]=0\) for all i.  
-- Recurrence: \(m[i,j]=\min_{i\le k<j}\{\,m[i,k]+m[k+1,j]+p_{i-1}\cdot p_k\cdot p_j\,\}\).
+- **Base case:** \( m[i,i] = 0 \) for all \( i \).  
+- **Recurrence:**  
+  \( m[i,j] = \min_{i \le k < j} \{\, m[i,k] + m[k+1,j] + p_{i-1} \cdot p_k \cdot p_j \,\} \)
 
 **(b) Minimum scalar multiplications**
 - **Answer:** `158` scalar multiplications.
