@@ -1,145 +1,120 @@
-# Unit_3_assignment_DAA_AshmitShekhar
-# DAA Assignment (GGSIPU 5th Sem BTech CSE)
+# Unit III – Assignment  
 
-> Solutions for: SECTION A – Short Theory & SECTION B – Algorithms & Recurrences
-
----
+Name: Ashmit Shekhar  
+Enrollment no: 07713302723
 
 ## SECTION A – Short Theory [15 Marks]
 
-### DP essentials
-**Three ingredients of Dynamic Programming (one-line purpose each):**
-1. **Optimal substructure** — a problem's optimal solution can be constructed from optimal solutions of its subproblems.
-2. **Overlapping subproblems** — subproblems recur many times so their results can be reused.
-3. **State & choice (DP formulation)** — a precise definition of state and choice to build recurrence and compute solutions.
+1) DP essentials  
+- List the three ingredients of DP and one-line purpose of each. 
+  
+   Ans:  - Optimal Substructure: Optimal solution is built from optimal solutions of subproblems.  
+         - Overlapping Subproblems: Same subproblems repeat; solve once and reuse.  
+         - State & Transition: Define DP state and recurrence to compute and store results efficiently.  
 
-### DP vs Divide & Conquer (two differences + example each)
-1. **Subproblem overlap:** DP requires overlapping subproblems (reuse results); D&C splits into independent subproblems (no reuse).  
-   *Example DP:* Fibonacci with memoization.  
-   *Example D&C:* Merge Sort (subproblems independent).
-2. **Reuse of solutions:** DP stores and reuses subproblem results (memo/tabulation); D&C recomputes or combines without storing intermediate results.  
-   *Example DP:* Matrix Chain Multiplication (stores m[i,j]).  
-   *Example D&C:* Quick Sort partitioning.
+---
+2) DP vs D&C  
+- State two differences focusing on subproblem overlap and reuse; give one example for each. 
 
-### Principle of optimality
-**Definition (one sentence):** If an optimal solution to a problem contains within it optimal solutions to subproblems, the problem satisfies the principle of optimality.  
-**Example of a problem that satisfies it:** Shortest path (single-source shortest path in a graph without negative cycles), or Matrix Chain Multiplication.
+    Ans: DP: Overlapping subproblems and results reused using memoization/tabulation.  
+             Example: Fibonacci using DP.  
+        - Divide & Conquer:Subproblems independent; recomputation occurs.  
+             Example: Merge Sort.  
 
-### Memoization (one-line each)
-**Memoization:** Top-down DP where computed subproblem results are stored (cached) and reused when the same subproblem recurs.  
-**Tabulation:** Bottom-up DP where results are computed iteratively in an order that ensures dependencies are already computed (no recursion).
-
-### Branch and Bound idea (two lines)
-**Branch-and-Bound (BnB):** Systematic search that branches on decision choices and maintains bounds (upper/lower) on the best possible solution in each branch.  
-**Role of bounding:** The bounding function estimates the best achievable value inside a branch; if the bound indicates the branch cannot beat the current best solution, the branch is pruned (discarded).
+---
+3) Principle of optimality  
+- Define it in one sentence and name any one problem satisfying it.
+Ans- Definition: If an optimal solution contains optimal solutions to its subproblems, the problem follows the principle of optimality.  
+- Example: Matrix Chain Multiplication.  
 
 ---
 
-## SECTION B – Algorithms & Recurrences [15 Marks]
+ 4. Memoization  
+Define memoization and contrast with tabulation in one line each.
 
-### 1) Matrix Chain Multiplication
-Given matrices: A₁: 5×4, A₂: 4×6, A₃: 6×2, A₄: 2×7 (so dimensions p = [5,4,6,2,7])
-
-**(a) Recurrence and base case**
-- **Base case:** \( m[i,i] = 0 \) for all \( i \).  
-- **Recurrence:**  
-  \( m[i,j] = \min_{i \le k < j} \{\, m[i,k] + m[k+1,j] + p_{i-1} \cdot p_k \cdot p_j \,\} \)
-
-**(b) Minimum scalar multiplications**
-- **Answer:** `158` scalar multiplications.
-
-*(Computed by standard DP for matrix chain.)*
+Ans- Memoization:Top-down approach storing results of solved subproblems to avoid recomputation.  
+- Tabulation: Bottom-up approach computing all subproblems iteratively in a table.  
 
 ---
 
-### 2) Longest Common Subsequence (LCS)
-Strings: X = "ABCDGH", Y = "AEDFHR"
+5. Branch and Bound Idea  
+Define BnB and the role of bounding in pruning in two lines.
 
-**(a) Recurrence and base**
-- Base: \(\text{LCS}(i,0)=0,\;\text{LCS}(0,j)=0\).  
-- Recurrence:
-  - If \(X[i]==Y[j]\) then \(\text{LCS}(i,j)=\text{LCS}(i-1,j-1)+1\).  
-  - Else \(\text{LCS}(i,j)=\max(\text{LCS}(i-1,j),\text{LCS}(i,j-1))\).
-
-**(b) LCS length (number only):** `3`
+Ans- Definition: A state-space search method that generates branches of partial solutions while tracking bounds of optimal value.  
+- Bounding: Bound estimates the best achievable value from a node; weak nodes are pruned to reduce search.  
 
 ---
+SECTION B – Algorithms & Recurrences (15 Marks)
 
-### 3) Optimal Binary Search Tree (OBST)
-Keys: 10, 20, 30 with probabilities \(p_1=0.4, p_2=0.3, p_3=0.3\). Assume \(q_i=0\) (no dummy keys).
+### 6. Matrix Chain Multiplication (A₁:5×4, A₂:4×6, A₃:6×2, A₄:2×7)
 
-**(a) DP formulations (w and e) with base**
-- Weight sum: \(w[i,j]=\sum_{t=i}^{j} p_t\).  
-- Expected cost DP: \(e[i,j]=\min_{r=i}^j\{ e[i,r-1] + e[r+1,j] + w[i,j] \}\).  
-- Base: \(e[i,i-1]=0,\; w[i,i-1]=0\) for all i.
+**a)** Recurrence and base case:
+```text
+m[i,i] = 0
+m[i,j] = min for i ≤ k < j { m[i,k] + m[k+1,j] + p[i-1] * p[k] * p[j] }
 
-**(b) Minimum expected search cost (number only):** `1.7`
-
+b) Minimum scalar multiplications (number only):
+158
 ---
 
-### 4) 0/1 Knapsack – Branch & Bound
-Capacity \(W=5\). Items (indices 1..4):
-- weights: \(w = [2,3,4,5]\)
-- profits: \(p = [3,4,5,6]\)
+7. Longest Common Subsequence (X = "ABCDGH", Y = "AEDFHR")
 
-**(a) Fractional upper-bound formula used for pruning**
+a) Recurrence and base case:
 
-Let items be ordered by nonincreasing profit/weight ratio. For a partial node with current value \(v\), current weight \(W_c\), and remaining capacity \(R = W - W_c\), the fractional upper bound is:
+LCS(i,0) = 0, LCS(0,j) = 0
+if X[i] == Y[j]:
+    LCS(i,j) = LCS(i-1, j-1) + 1
+else:
+    LCS(i,j) = max( LCS(i-1,j), LCS(i, j-1) )
 
-\[
-\text{ub} = v + \sum_{i\in\text{remaining, in ratio order}} p_i \cdot x_i
-\]
 
-where each \(x_i\) = 1 if \(w_i \le R\) (take whole item), else \(x_i = R / w_i\) for the first item that doesn't fit (fractional part), and then stop.
-
-(Short-form formula frequently written as) \(\text{ub} = v + \text{fractional\_fill}(R)\).
-
-**(b) Show level-0 and level-1 nodes (include/exclude first item) with (v,w,ub) only**
-- Items' profit/weight ratios: item1: 3/2 = 1.5, item2: 4/3 ≈ 1.333, item3: 5/4 = 1.25, item4: 6/5 = 1.2 — already in decreasing order.
-
-- **Level-0 (root):** include nothing yet → \((v=0, w=0, \; ub=7)\).  
-  Explanation: fractional fill by items 1 & 2 exactly fits capacity (2+3=5) giving ub = 3+4 = 7.
-
-- **Level-1 (include first item):** include item1 → \((v=3, w=2, \; ub=7)\).  
-  Explanation: after including item1 (v=3,w=2) remaining capacity 3 can take item2 fully (profit 4) so ub = 3+4 = 7.
-
-- **Level-1 (exclude first item):** exclude item1 → \((v=0, w=0, \; ub=6.5)\).  
-  Explanation: best fractional fill without item1 is item2 (w3,p4) plus half of item3 (0.5×5=2.5) → ub = 4 + 2.5 = 6.5.
-
+b) LCS length (number only):
+3
 ---
 
-### 5) TSP – Dynamic Programming (Held–Karp)
-(Assume cities numbered 1..4 and city 1 is the start/end; the user mentioned an example distance matrix D but did not provide its numeric values.)
+8. Optimal Binary Search Tree
 
-**(a) Recurrence and final expression**
-- Recurrence for subset S (subset of \{2..n\}) and endpoint \(j\in S\):
-  \[
-  C[S,j] = \min_{i\in S\setminus\{j\}} \{ C[S\setminus\{j\}, i] + d(i,j) \}
-  \]
-- Final answer (minimum tour cost):
-  \[
-  \min_{j\in\{2..n\}} \{ C[\{2..n\}, j] + d(j,1) \}\n
-  \]
-- Base case: \(C[\{k\}, k] = d(1,k)\) for k = 2..n.
+(keys: 10,20,30; p = 0.4,0.3,0.3; assume q = 0)
 
-**(b) Initialize base entries \(C[\{k\},k]\) for k=2..4 (numbers only)**
+a) DP formulation with base:
 
-I cannot give numeric values for these base entries because the distance matrix **D** (the values \(d(1,2), d(1,3), d(1,4)\)) was not provided in the problem statement.  
+e[i,i-1] = 0;  w[i,i-1] = 0
+w[i,j] = w[i, j-1] + p[j]
+e[i,j] = min for r = i..j { e[i,r-1] + e[r+1,j] + w[i,j] }
 
-**Format/example if D were given:**
-```
-C[{2},2] = d(1,2)
-C[{3},3] = d(1,3)
-C[{4},4] = d(1,4)
-```
-(Replace `d(1,k)` by the numeric distances from city 1 to k when D is available.)
 
+b) Minimum expected search cost (number only):
+1.7
 ---
 
-### Notes & References
-- Numeric answers (Matrix Chain = 158, LCS length = 3, OBST cost = 1.7) were computed using standard DP algorithms.
+9. 0/1 Knapsack – Branch & Bound
 
+(W = 5; w = {2,3,4,5}, p = {3,4,5,6})
+
+a) Fractional upper bound formula:
+
+ub = V + sum of next items fully fitting + (fraction of next item if partially fits)
+
+
+b) Level-0 and Level-1 nodes (v, w, ub):
+
+Level-0 (Root): (0, 0, 7.0)
+
+Level-1 Include Item1: (3, 2, 7.0)
+
+Level-1 Exclude Item1: (0, 0, 6.5)
 ---
 
+10. TSP – Dynamic Programming (Held–Karp; 4 cities)
+
+a) Recurrence and final expression:
+
+C[{k},k] = D[1][k]
+C[S,j] = min for i ∈ S, i ≠ j { C[S-{j},i] + D[i][j] }
+Final = min for j ∈ {2..n} { C[{2..n},j] + D[j][1] }
 
 
+b) Base entries C[{k},k] for k = 2..4:
+C[{2},2] = D[1,2]
+C[{3},3] = D[1,3]
+C[{4},4] = D[1,4]
